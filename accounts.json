@@ -1,0 +1,22 @@
+{
+    "accounts": [
+      {
+        "id": 1,
+        "username": "testuser",
+        "password": "test123",
+        "email": "test@example.com",
+        "profileName": "Max Mustermann",
+        "events": [
+          {
+            "id": 1,
+            "title": "Geburtstag Party",
+            "description": "Meine Geburtstagsfeier",
+            "date": "2024-12-15",
+            "location": "Zuhause",
+            "category": "Privat"
+          }
+        ]
+      }
+    ]
+  }
+  

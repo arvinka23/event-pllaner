@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event-Planer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Event-Planer</h1>
+        <nav id="navigation" style="display: none;">
+            <a href="#" id="view-events">Meine Events</a>
+            <a href="#" id="add-event">Event hinzufügen</a>
+            <a href="#" id="logout-button">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <div id="login-container">
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Benutzername" required>
+                <input type="password" id="password" placeholder="Passwort" required>
+                <button type="submit">Einloggen</button>
+            </form>
+            <p>Noch keinen Account? <a href="#" id="show-register">Registrieren</a></p>
+        </div>
+
+        <div id="register-container" style="display: none;">
+            <h2>Registrieren</h2>
+            <form id="register-form">
+                <input type="text" id="reg-username" placeholder="Benutzername" required>
+                <input type="password" id="reg-password" placeholder="Passwort" required>
+                <button type="submit">Registrieren</button>
+                <button type="button" id="cancel-register">Abbrechen</button>
+            </form>
+        </div>
+
+        <div id="event-container" style="display: none;">
+            <h2>Meine Events</h2>
+            <ul id="event-list"></ul>
+        </div>
+
+        <div id="event-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <form id="event-form">
+                    <h3 id="modal-title">Event erstellen</h3>
+                    <input type="text" id="event-title" placeholder="Titel" required>
+                    <input type="datetime-local" id="event-date" required>
+                    <button type="submit">Speichern</button>
+                    <button type="button" id="cancel-button">Abbrechen</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Event-Planer. Alle Rechte vorbehalten.</p>
+    </footer>
+
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>
