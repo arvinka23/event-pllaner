@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event-Planer</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- ─── Header ──────────────────────────────────────────────── -->
+  <header>
+    <div class="header-content">
+      <h1>Event-Planer</h1>
+      <nav id="navigation" class="hidden" aria-label="Hauptnavigation">
+        <span id="welcome-text" class="welcome-text"></span>
+        <a href="#" id="nav-events" class="nav-link">Meine Events</a>
+        <a href="#" id="nav-add-event" class="nav-link">+ Neues Event</a>
+        <a href="#" id="nav-logout" class="nav-link nav-logout">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ────────────────────────────────────────── -->
+  <main>
+    <!-- Loading Spinner -->
+    <div id="loading" class="loading hidden" aria-label="Laden...">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Login Section -->
+    <section id="login-section" aria-label="Anmeldung">
+      <div class="card">
+        <h2>Anmelden</h2>
+        <form id="login-form" novalidate>
+          <div class="form-group">
+            <label for="login-username">Benutzername</label>
+            <input type="text" id="login-username" placeholder="Dein Benutzername" required
+              autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Passwort</label>
+            <input type="password" id="login-password" placeholder="Dein Passwort" required
+              autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Einloggen</button>
+        </form>
+        <p class="form-footer">
+          Noch keinen Account?
+          <a href="#" id="show-register" class="link">Jetzt registrieren</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Register Section -->
+    <section id="register-section" class="hidden" aria-label="Registrierung">
+      <div class="card">
+        <h2>Registrieren</h2>
+        <form id="register-form" novalidate>
+          <div class="form-group">
+            <label for="reg-username">Benutzername</label>
+            <input type="text" id="reg-username" placeholder="Mind. 3 Zeichen" required minlength="3"
+              maxlength="30" autocomplete="username">
+          </div>
+          <div class="form-group">
+            <label for="reg-email">E-Mail</label>
+            <input type="email" id="reg-email" placeholder="deine@email.de" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="reg-password">Passwort</label>
+            <input type="password" id="reg-password" placeholder="Mind. 6 Zeichen" required minlength="6"
+              autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label for="reg-profilename">Profilname</label>
+            <input type="text" id="reg-profilename" placeholder="Dein Name" required maxlength="50">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Registrieren</button>
+          <button type="button" id="cancel-register" class="btn btn-secondary btn-full">Zurück zum Login</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events-section" class="hidden" aria-label="Meine Events">
+      <div class="section-header">
+        <h2>Meine Events</h2>
+        <button id="btn-add-event" class="btn btn-primary">+ Neues Event</button>
+      </div>
+      <div id="events-empty" class="empty-state hidden">
+        <p>Du hast noch keine Events erstellt.</p>
+        <p>Klicke auf <strong>"+ Neues Event"</strong> um loszulegen!</p>
+      </div>
+      <div id="event-list" class="event-grid" role="list" aria-label="Event-Liste"></div>
+    </section>
+  </main>
+
+  <!-- ─── Event Modal ─────────────────────────────────────────── -->
+  <div id="event-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-content">
+      <h3 id="modal-title">Neues Event erstellen</h3>
+      <form id="event-form" novalidate>
+        <input type="hidden" id="event-id">
+        <div class="form-group">
+          <label for="event-title">Titel *</label>
+          <input type="text" id="event-title" placeholder="z.B. Geburtstagsfeier" required maxlength="100">
+        </div>
+        <div class="form-group">
+          <label for="event-description">Beschreibung</label>
+          <textarea id="event-description" placeholder="Was ist geplant?" rows="3" maxlength="500"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="event-date">Datum & Uhrzeit *</label>
+          <input type="datetime-local" id="event-date" required>
+        </div>
+        <div class="form-group">
+          <label for="event-location">Ort</label>
+          <input type="text" id="event-location" placeholder="z.B. Zuhause, Restaurant..." maxlength="200">
+        </div>
+        <div class="form-group">
+          <label for="event-category">Kategorie</label>
+          <select id="event-category">
+            <option value="Privat">Privat</option>
+            <option value="Arbeit">Arbeit</option>
+            <option value="Freizeit">Freizeit</option>
+            <option value="Sonstiges" selected>Sonstiges</option>
+          </select>
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Speichern</button>
+          <button type="button" id="cancel-modal" class="btn btn-secondary">Abbrechen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ─── Toast Container ─────────────────────────────────────── -->
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+  <!-- ─── Footer ──────────────────────────────────────────────── -->
+  <footer>
+    <p>&copy; 2024 Event-Planer. Alle Rechte vorbehalten.</p>
+  </footer>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
